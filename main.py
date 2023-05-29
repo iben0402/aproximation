@@ -13,9 +13,10 @@ def calculate_phi(xi):
     return wspolczynniki
 
 
-data = pd.read_csv('./2018_paths/Hel_yeah.csv')
+data = pd.read_csv('./2018_paths/SpacerniakGdansk.csv')
 data.columns = ['x','y']
-length = len(data)
+length = 100
+# print(data)
 interpolation_function = []
 xi = []
 divider = 1
@@ -24,7 +25,7 @@ for i in range(length):
     for j in range(length):
         if i!=j:
             xi.append(data['x'][j])
-            divider *= (data['x'][i]-data['y'][j])
+            divider *= (data['x'][i]-data['x'][j])
     divider = divider / data['y'][i]
     phi = calculate_phi(xi)
     phi = [x / divider for x in phi]
