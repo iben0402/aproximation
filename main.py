@@ -1,44 +1,51 @@
-import pandas as pd
+from lagrange import interpolate_with_lagrange
+from cubic_spline import interpolate_with_cubic_splines
 
+# UWAGA: Obecnie wszystkie wykresy zapisywane są do plików, a nie wyświetlane na ekranie.
+# PLIK 100.csv
+interpolate_with_lagrange('100', 10, 'regular')
+interpolate_with_lagrange('100', 10, 'random')
+interpolate_with_lagrange('100', 20, 'regular')
+interpolate_with_lagrange('100', 20, 'random')
 
-def calculate_phi(xi):
-    n = len(xi)
-    wspolczynniki = [0] * (n + 1)
-    wspolczynniki[0] = 1
+interpolate_with_cubic_splines('100', 20, 'regular')
+interpolate_with_cubic_splines('100', 20, 'random')
+interpolate_with_cubic_splines('100', 50, 'regular')
+interpolate_with_cubic_splines('100', 50, 'random')
 
-    for i in range(n):
-        for j in range(i, -1, -1):
-            wspolczynniki[j + 1] -= xi[i] * wspolczynniki[j]
+# PLIK MountEverest.csv
+interpolate_with_lagrange('MountEverest', 10, 'regular')
+interpolate_with_lagrange('MountEverest', 10, 'random')
+interpolate_with_lagrange('MountEverest', 20, 'regular')
+interpolate_with_lagrange('MountEverest', 20, 'random')
 
-    return wspolczynniki
+interpolate_with_cubic_splines('MountEverest', 20, 'regular')
+interpolate_with_cubic_splines('MountEverest', 20, 'random')
+interpolate_with_cubic_splines('MountEverest', 50, 'regular')
+interpolate_with_cubic_splines('MountEverest', 50, 'random')
 
+# PLIK WielkiKanionKolorado.csv
+interpolate_with_lagrange('WielkiKanionKolorado', 10, 'regular')
+interpolate_with_lagrange('WielkiKanionKolorado', 10, 'random')
+interpolate_with_lagrange('WielkiKanionKolorado', 20, 'regular')
+interpolate_with_lagrange('WielkiKanionKolorado', 20, 'random')
 
-data = pd.read_csv('./2018_paths/SpacerniakGdansk.csv')
-data.columns = ['x','y']
-length = 100
-# print(data)
-interpolation_function = []
-xi = []
-divider = 1
+interpolate_with_cubic_splines('WielkiKanionKolorado', 20, 'regular')
+interpolate_with_cubic_splines('WielkiKanionKolorado', 20, 'random')
+interpolate_with_cubic_splines('WielkiKanionKolorado', 50, 'regular')
+interpolate_with_cubic_splines('WielkiKanionKolorado', 50, 'random')
 
-for i in range(length):
-    for j in range(length):
-        if i!=j:
-            xi.append(data['x'][j])
-            divider *= (data['x'][i]-data['x'][j])
-    divider = divider / data['y'][i]
-    phi = calculate_phi(xi)
-    phi = [x / divider for x in phi]
-    if i == 0:
-        interpolation_function = phi
-    else:
-        for k in range(len(interpolation_function)):
-            interpolation_function[k]+=phi[k]
+# PLIK SpacerniakGdansk.csv
+interpolate_with_lagrange('SpacerniakGdansk', 10, 'regular')
+interpolate_with_lagrange('SpacerniakGdansk', 10, 'random')
+interpolate_with_lagrange('SpacerniakGdansk', 20, 'regular')
+interpolate_with_lagrange('SpacerniakGdansk', 20, 'random')
 
-    xi = []
-    divider = 1
+interpolate_with_cubic_splines('SpacerniakGdansk', 20, 'regular')
+interpolate_with_cubic_splines('SpacerniakGdansk', 20, 'random')
+interpolate_with_cubic_splines('SpacerniakGdansk', 50, 'regular')
+interpolate_with_cubic_splines('SpacerniakGdansk', 50, 'random')
 
-print(interpolation_function)
+# PLIK 100.csv dla dużego zestawu danych i metody Lagrange'a
+interpolate_with_lagrange('100', 50, 'regular')
 
-# xi = data['x']
-# print(calculate_phi(xi))
